@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, int> playerScores = new Dictionary<string, int>();
     public int winPointsRequired = 3;
 
+    AudioManager audioManager;
+
+
     public enum GameMode
     {
         SinglePlayer,
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        audioManager= FindAnyObjectByType<AudioManager>();
     }
 
     public void SetGameMode(GameMode mode)
@@ -79,6 +83,10 @@ public class GameManager : MonoBehaviour
             if (score.Value >= winPointsRequired)
             {
                 //DO wining celebration
+                if(score.Key.Contains("AI"))
+                    audioManager.PlaySFX(audioManager.AIWin);
+                else
+                audioManager.PlaySFX(audioManager.PlayerWin);
 
                 GameFinishManager.UnregisterTank(winningTank);
                 playerScores = new Dictionary<string, int>();
