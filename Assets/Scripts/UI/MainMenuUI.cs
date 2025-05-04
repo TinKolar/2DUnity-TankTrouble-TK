@@ -5,7 +5,12 @@ using UnityEngine;
 public class MainMenuUI : MonoBehaviour
 {
 
-    public string currentGameScene;
+    private string currentGameScene;
+
+    [SerializeField] private Canvas ControlsCanvas;
+    [SerializeField] private Canvas MainMenuCanvas;
+
+
 
     public void OnStartButton()
     {
@@ -17,9 +22,16 @@ public class MainMenuUI : MonoBehaviour
         FindObjectOfType<GameManager>().Quit();
     }
 
-    public void OnCreditsButton()
+    public void OnControlsButton()
     {
-        //do something
+        ControlsCanvas.gameObject.SetActive(true);
+        MainMenuCanvas.gameObject.SetActive(false);
+    }
+
+    public void OnBackButton()
+    {
+        MainMenuCanvas.gameObject.SetActive(true);
+        ControlsCanvas.gameObject.SetActive(false);
     }
 
     public string GetRandomMap()
