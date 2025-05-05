@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MainMenuUI : MonoBehaviour
@@ -10,7 +11,16 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Canvas ControlsCanvas;
     [SerializeField] private Canvas MainMenuCanvas;
 
+    public TextMeshProUGUI locked;
 
+    private void Start()
+    {
+        if(GameManager.NumberOfMaps==4)
+        {
+            locked.text = "Unlocked :)";
+            locked.color = Color.green;
+        }
+    }
 
     public void OnStartButton()
     {
@@ -42,6 +52,17 @@ public class MainMenuUI : MonoBehaviour
         currentGameScene = $"GameScene {randomMapNumber}";
         // Return the formatted string
         return currentGameScene;
+    }
+
+    public void OnSpecialMapButton()
+    {
+        if(GameManager.NumberOfMaps==4)
+        FindObjectOfType<GameManager>().LoadScene("GameScene 4", "MainMenu");
+        else
+        {
+            locked.text = "Locked";
+        }
+
     }
 
 }

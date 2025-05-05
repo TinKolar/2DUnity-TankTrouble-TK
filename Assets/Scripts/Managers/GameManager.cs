@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,6 +51,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadScene("PlayerPickScene"/*,unloadSceneName:"UnloadScene"*/);
+
+        if (PlayerPrefs.HasKey("NumberOfMaps"))
+        {
+            NumberOfMaps = PlayerPrefs.GetInt("NumberOfMaps");
+        }
     }
 
     public void LoadScene(string sceneName, string unloadSceneName = null)
@@ -86,7 +90,13 @@ public class GameManager : MonoBehaviour
                 if(score.Key.Contains("AI"))
                     audioManager.PlaySFX(audioManager.AIWin);
                 else
+                {
                 audioManager.PlaySFX(audioManager.PlayerWin);
+                    NumberOfMaps = 4;
+                    PlayerPrefs.SetInt("NumberOfMaps", NumberOfMaps);
+                    PlayerPrefs.Save(); // Forces it to write immediately (optional but good practice)
+
+                }
 
                 GameFinishManager.UnregisterTank(winningTank);
                 playerScores = new Dictionary<string, int>();

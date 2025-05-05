@@ -1,10 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.Reflection;
 
 public class GameFinishManager : MonoBehaviour
 {

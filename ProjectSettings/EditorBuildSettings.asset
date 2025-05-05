@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene 1.unity
     guid: 8c4c43ab30b4b8f46a4d42d7426c0b50
   - enabled: 1
+    path: Assets/Scenes/GameScene 4.unity
+    guid: 23187be74b6432b48a5fc634f1a597f4
+  - enabled: 1
     path: Assets/Scenes/WaitingScene.unity
     guid: 387d805fd1c5b55489b5a12057a94bbf
   m_configObjects: {}

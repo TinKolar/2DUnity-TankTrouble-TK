@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
 {
@@ -11,11 +8,19 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Canvas GameCanvas;
     [SerializeField] public TextMeshProUGUI scores;
 
+    private Camera camera;
+
     public GameObject p1;
     public GameObject p2;
     public GameObject ai;
     private string clone = "(Clone)";
 
+    private void Start()
+    {
+        camera = FindAnyObjectByType<Camera>();
+        PauseCanvas.worldCamera = camera;
+        GameCanvas.worldCamera = camera;
+    }
 
     public void Update()
     {
@@ -53,21 +58,24 @@ public class GameUI : MonoBehaviour
 
     public void OnResumeButton()
     {
+        Time.timeScale = 1;
         PauseCanvas.gameObject.SetActive(false);
     }
 
     public void OnPauseButton()
     {
+        Time.timeScale = 0;
         PauseCanvas.gameObject.SetActive(true);
     }
 
     public void OnSettingsButton()
     {
-
+        //GameManager.NumberOfMaps = 3;
     }
 
     public void OnMainMenuButton()
     {
+        Time.timeScale = 1;
 
         PauseCanvas.gameObject.SetActive(false);
         FindObjectOfType<GameManager>().LoadScene("MainMenu", gameObject.scene.name);
