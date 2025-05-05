@@ -12,19 +12,8 @@ public class GameFinishManager : MonoBehaviour
     public float checkInterval = 5f;
 
     private static List<GameObject> livingTanks = new List<GameObject>();
-    private float checkTimer;
 
 
-    void Update()
-    {
-        
-            checkTimer += Time.deltaTime;
-            if (checkTimer >= checkInterval)
-            {
-                checkTimer = 0f;
-                CheckLivingTanks();
-            }
-    }
 
     public static void RegisterTank(GameObject tank)
     {
@@ -38,7 +27,7 @@ public class GameFinishManager : MonoBehaviour
             livingTanks.Remove(tank);
     }
 
-    private void CheckLivingTanks()
+    public void CheckLivingTanks()
     {
 
         if (livingTanks.Count <= 1 && GameManager.Instance.CurrentGameMode != GameManager.GameMode.SinglePlayer) // 0 or 1 tank left
@@ -54,7 +43,17 @@ public class GameFinishManager : MonoBehaviour
             UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
             GameManager.Instance.HandleRoundEnd(null, scene);
         }
-    }
 
+
+    }
+    public IEnumerator WaitALittle()
+    {
+        yield return new WaitForSeconds(checkInterval);
+        CheckLivingTanks();
+    }
+    public void WaitTank()
+    {
+        StartCoroutine(WaitALittle());
+    }
 
 }

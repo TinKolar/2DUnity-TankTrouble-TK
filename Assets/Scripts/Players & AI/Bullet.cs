@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -13,6 +15,8 @@ public class Bullet : MonoBehaviour
     private Vector2 moveDirection;
 
     AudioManager audioManager;
+    AnimationManager animationManager;
+    GameFinishManager gameFinishManager;
 
     private void Awake()
     {
@@ -20,7 +24,8 @@ public class Bullet : MonoBehaviour
         if(audioManager == null )
         {
         audioManager = FindAnyObjectByType<AudioManager>();
-
+        animationManager= FindAnyObjectByType<AnimationManager>();
+        gameFinishManager = FindAnyObjectByType<GameFinishManager>();
         }
     }
 
@@ -44,8 +49,13 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             audioManager.PlaySFX(audioManager.TankExploded);
+            animationManager.PlayAnimation(collision.gameObject.transform.position);
+            
             Destroy(collision.gameObject);
+            gameFinishManager.WaitTank();
             Deactivate(true);
+
+
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
@@ -58,11 +68,19 @@ public class Bullet : MonoBehaviour
         else if (collision.gameObject.CompareTag("AITank"))
         {
             audioManager.PlaySFX(audioManager.TankExploded);
+            animationManager.PlayAnimation(collision.gameObject.transform.position);
 
             Destroy(collision.gameObject);
+            gameFinishManager.WaitTank();
             Deactivate(true);
+
         }
+
+
     }
+
+ 
+
 
     private void DeactivateWrap()
     {
