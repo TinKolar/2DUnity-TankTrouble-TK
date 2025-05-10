@@ -4,7 +4,6 @@ public class FixedAspectRatio : MonoBehaviour
 {
     // Set your desired aspect ratio (e.g., 16:9)
     public float targetAspect = 16f / 9f;
-    public GameObject background;
 
 
     void Start()
@@ -41,6 +40,5 @@ public class FixedAspectRatio : MonoBehaviour
             camera.rect = rect;
         }
 
-        background.transform.localScale = new Vector3(Screen.width, Screen.height, 1f);
     }
 }
